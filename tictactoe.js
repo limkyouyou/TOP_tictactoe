@@ -217,3 +217,41 @@ const run_game = (function () {
 var player_1 = player('Lee', 'o');
 var player_2 = player('Chan', 'x');
 var new_board = board();
+
+let submit_btn = document.getElementById('submit_btn');
+let buttons_list = document.getElementsByClassName('cell');
+let input_form_collection = document.forms.input_form;
+
+submit_btn.addEventListener('click', (event) => {
+  event.preventDefault();
+  
+  let p1_name = input_form_collection['p1_name'].value;
+  let p2_name = input_form_collection['p2_name'].value;
+
+  let player_1 = player(p1_name, 'o');
+  let player_2 = player(p2_name, 'x');
+
+  let new_board = board();
+
+  run_game.add_board(new_board);
+  run_game.add_players(player_1, player_2);
+
+});
+
+for (let button of buttons_list) {
+  button.addEventListener('click', () => {
+    let location = button.id.split('-');
+    let row = parseInt(location[0]);
+    let column = parseInt(location[1]);
+    let current_player = run_game.get_current_player();
+
+    run_game.play_turn(row, column);
+
+    if (current_player == 'o') {
+      button.querySelector('.circle_img').style.display = 'block';
+    }
+    else {
+      button.querySelector('.cross_img').style.display = 'block';
+    }
+  })
+}

@@ -1,0 +1,66 @@
+
+* {
+  box-sizing: border-box;
+}
+
+#main_container {
+  width: 900px;
+  height: 625px;
+  border: 1px solid black;
+}
+
+#header_container {
+  background-color: aqua;
+}
+
+#game_container {
+  display: flex;
+
+  height: 80%;
+  background-color: greenyellow;
+}
+
+#board_container {
+  display: grid;
+  padding: 2px;
+  grid-template-columns: repeat(3, 165px);
+  grid-template-rows: repeat(3, 165px);
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.circle_img {
+  display: none;
+}
+
+.cross_img {
+  width: 150px;
+  height: 150px;
+  display: none;
+}
+
+#p1_container,
+#p2_container {
+  width: 200px;
+  height: 100%;
+  background-color: bisque;
+}
+
+#board_container {
+  width: 500px;
+  height: 100%;
+  background-color: blueviolet;
+}
+
+#input_container {
+  background-color: rgb(243, 194, 194);
+}
+
+#input_form #name_input_container{
+  display: flex;
+}

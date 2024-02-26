@@ -1,12 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-withd, initial-scale='1.0">
   <title>TOP - Fullstack JS project: Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="main_container">
+    <div id="header_container">
+      <h2>Tic-Tac-Toe</h2>
+    </div>
+    <div id="game_container">
+      <div id="p1_container">
 
+      </div>
+      <div id="board_container">
+        <div class="cell" id="0-0">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="0-1">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="0-2">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="1-0">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="1-1">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="1-2">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="2-0">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="2-1">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+        <div class="cell" id="2-2">
+          <img class="circle_img" src="media/circle-outline.svg" alt="circle">
+          <img class="cross_img" src="media/cross-svgrepo-com.svg" alt="cross">
+        </div>
+      </div>
+      <div id="p2_container">
+
+      </div>
+    </div>
+    <div id="input_container">
+      <form id="input_form" action="">
+        <div id="name_input_container">
+          <div id="p1_name_input_container">
+            <label for="p1_name_input">Enter Player 1 Name</label>
+            <input type="text" name="p1_name" id="p1_name_input">
+          </div>
+          <div id="p2_name_input_container">
+            <label for="p2_name_input">Enter Player 2 Name</label>
+            <input type="text" name="p2_name" id="p2_name_input">
+          </div>
+        </div>
+        <div>
+          <input id="submit_btn" type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 <script src="tictactoe.js"></script>
 </html>
