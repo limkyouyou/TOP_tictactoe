@@ -67,7 +67,39 @@ function board() {
     return false;
   }
 
-  return {get_board, put_mark, clean_board, check_row, check_col};
+  const check_diagonal = function () {
+    if (board[0][0]) {
+      let prev = board[0][0];
+      let j = 1;
+      for (j; j < 3; j++) {
+        console.log(prev);
+        if (prev !== board[j][j]) {
+          break;
+        }
+      }
+      if (j === 3) {
+        return true;
+      }
+      console.log('not in this row');
+    }
+    if (board[0][2]) {
+      let prev = board[0][2];
+      let j = 1;
+      for (j; j < 3; j++) {
+        console.log(prev);
+        if (prev !== board[j][Math.abs(j-2)]) {
+          break;
+        }
+      }
+      if (j === 3) {
+        return true;
+      }
+      console.log('not in this row');
+    }
+    return false;
+  }
+
+  return {get_board, put_mark, clean_board, check_row, check_col, check_diagonal};
 }
 
 var player_1 = player('o');
