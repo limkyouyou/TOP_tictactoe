@@ -12,6 +12,7 @@ function board() {
   let board = [[0,0,0],[0,0,0],[0,0,0]];
 
   const get_board = () => board;
+
   const put_mark = function (row, column, mark) {
     if(!board[row][column]) {
       board[row][column] = mark;
@@ -22,7 +23,28 @@ function board() {
     }
   }
 
-  return {get_board, put_mark};
+  const check_row = function () {
+    
+    for (let i = 0; i < 3; i ++) {
+      if (board[i][0]) {
+        let prev = board[i][0];
+        let j = 1;
+        for (j; j < 3; j++) {
+          console.log(prev);
+          if (prev !== board[i][j]) {
+            break;
+          }
+        }
+        if (j === 3) {
+          return true;
+        }
+        console.log('not in this row');
+      }
+    }
+    return false;
+  }
+
+  return {get_board, put_mark, check_row};
 }
 
 var player_1 = player('o');
