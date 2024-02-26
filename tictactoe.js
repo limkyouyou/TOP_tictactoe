@@ -32,15 +32,15 @@ function board() {
         let prev = board[i][0];
         let j = 1;
         for (j; j < 3; j++) {
-          console.log(prev);
+          //console.log(prev);
           if (prev !== board[i][j]) {
             break;
           }
         }
         if (j === 3) {
-          return true;
+          return prev;
         }
-        console.log('not in this row');
+        //console.log('not in this row');
       }
     }
     return false;
@@ -53,15 +53,15 @@ function board() {
         let prev = board[0][i];
         let j = 1;
         for (j; j < 3; j++) {
-          console.log(prev);
+          //console.log(prev);
           if (prev !== board[j][i]) {
             break;
           }
         }
         if (j === 3) {
-          return true;
+          return prev;
         }
-        console.log('not in this row');
+        //console.log('not in this row');
       }
     }
     return false;
@@ -72,29 +72,29 @@ function board() {
       let prev = board[0][0];
       let j = 1;
       for (j; j < 3; j++) {
-        console.log(prev);
+        //console.log(prev);
         if (prev !== board[j][j]) {
           break;
         }
       }
       if (j === 3) {
-        return true;
+        return prev;
       }
-      console.log('not in this row');
+      //console.log('not in this row');
     }
     if (board[0][2]) {
       let prev = board[0][2];
       let j = 1;
       for (j; j < 3; j++) {
-        console.log(prev);
+        //console.log(prev);
         if (prev !== board[j][Math.abs(j-2)]) {
           break;
         }
       }
       if (j === 3) {
-        return true;
+        return prev;
       }
-      console.log('not in this row');
+      //console.log('not in this row');
     }
     return false;
   }
