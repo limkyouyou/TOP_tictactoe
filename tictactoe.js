@@ -46,7 +46,28 @@ function board() {
     return false;
   }
 
-  return {get_board, put_mark, clean_board, check_row};
+  const check_col = function () {
+    
+    for (let i = 0; i < 3; i ++) {
+      if (board[0][i]) {
+        let prev = board[0][i];
+        let j = 1;
+        for (j; j < 3; j++) {
+          console.log(prev);
+          if (prev !== board[j][i]) {
+            break;
+          }
+        }
+        if (j === 3) {
+          return true;
+        }
+        console.log('not in this row');
+      }
+    }
+    return false;
+  }
+
+  return {get_board, put_mark, clean_board, check_row, check_col};
 }
 
 var player_1 = player('o');
