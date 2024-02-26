@@ -104,6 +104,30 @@ function board() {
   return {get_board, put_mark, clean_board, check_row, check_col, check_diagonal};
 }
 
+const run_game = (function () {
+
+  let turn = 0;
+
+  const play = function () {
+    console.log('test')
+  }
+
+  const switch_turn = () => ++turn;
+
+  const get_turn = () => turn;
+
+  const check_game_end = function () {
+
+    if (turn === 8) {
+      console.log('game ended');
+      return true;
+    }
+    return false;
+  }
+
+  return {play, switch_turn, get_turn, check_game_end};
+})();
+
 var player_1 = player('Lee', 'o');
 var player_2 = player('Chan', 'x');
 var new_board = board();
