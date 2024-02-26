@@ -107,6 +107,7 @@ function board() {
 const run_game = (function () {
 
   let turn = 0;
+  let players = [];
 
   const play = function () {
     console.log('test')
@@ -115,6 +116,30 @@ const run_game = (function () {
   const switch_turn = () => ++turn;
 
   const get_turn = () => turn;
+
+  const get_players_list = () => players;
+
+  const check_players_ready = function () {
+    if (players.length === 2) {
+      return true;
+    }
+    return false
+  }
+
+  const add_players = function (player_1, player_2) {
+    if (!check_players_ready()) {
+      players[0] = player_1;
+      players[1] = player_2;
+    }
+    return false;
+  }
+
+  const get_current_player = function () {
+    if (check_players_ready()) {
+      return players[turn % 2].get_mark();
+    }
+    return false;
+  }
 
   const check_game_end = function () {
 
@@ -125,7 +150,17 @@ const run_game = (function () {
     return false;
   }
 
-  return {play, switch_turn, get_turn, check_game_end};
+  
+
+  return {
+    play, 
+    switch_turn, 
+    get_turn, check_game_end, 
+    get_players_list, 
+    add_players,
+    get_current_player,
+    
+  };
 })();
 
 var player_1 = player('Lee', 'o');
