@@ -1,10 +1,12 @@
 
 // factory function for player. Takes o or x as parameter indicating which player they are
-function player(mark) {
+function player(name, mark) {
+
+  const get_name = () => name;
 
   const get_mark = () => mark;
 
-  return {get_mark};
+  return {get_mark, get_name};
 }
 
 function board() {
@@ -102,6 +104,6 @@ function board() {
   return {get_board, put_mark, clean_board, check_row, check_col, check_diagonal};
 }
 
-var player_1 = player('o');
-var player_2 = player('x');
+var player_1 = player('Lee', 'o');
+var player_2 = player('Chan', 'x');
 var new_board = board();
