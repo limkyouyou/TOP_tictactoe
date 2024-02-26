@@ -108,16 +108,15 @@ const run_game = (function () {
 
   let turn = 0;
   let players = [];
-
-  const play = function () {
-    console.log('test')
-  }
+  let board;
 
   const switch_turn = () => ++turn;
 
   const get_turn = () => turn;
 
   const get_players_list = () => players;
+
+  const get_board_obj = () => board;
 
   const check_players_ready = function () {
     if (players.length === 2) {
@@ -130,6 +129,7 @@ const run_game = (function () {
     if (!check_players_ready()) {
       players[0] = player_1;
       players[1] = player_2;
+      return true;
     }
     return false;
   }
@@ -141,6 +141,10 @@ const run_game = (function () {
     return false;
   }
 
+  const add_board = function (board_obj) {
+    board = board_obj;
+  }
+
   const check_game_end = function () {
 
     if (turn === 8) {
@@ -150,16 +154,55 @@ const run_game = (function () {
     return false;
   }
 
-  
+  const validate_input = function (row, column) {
+    const valid_list = [0,1,2];
+    if (row in valid_list && column in valid_list) {
+      return true;
+    }
+    return false
+  }
+
+  const play_turn = function (row, column) {
+    // assume board is loaded and game has not ended - under 9 turns and no winner
+    // if players are not ready OR input is invalid OR given cell is occupied then return false 
+    if (check_players_ready() && validate_input(row, column) && !(board.get_board()[row][column])) {
+      // get current player and put down its mark
+      let mark = get_current_player();
+
+      console.log('current turn: ' + mark);
+
+      board.put_mark(row, column, mark);
+      
+      // check for winner or game ended
+      let winner = (board.check_col() || board.check_row() || board.check_diagonal() || check_game_end());
+      
+      if (winner) {
+        // if game ended with no winner, it should return true boolean
+        return winner;
+      }
+
+      console.log(board.get_board());
+      
+      // increase turn number
+      switch_turn();
+    }
+    else {
+      //returns false when players are not ready or or input is invalid or the given cell is occupied
+      return false;
+    }
+  }
+
+
 
   return {
-    play, 
+    play_turn, 
     switch_turn, 
     get_turn, check_game_end, 
     get_players_list, 
     add_players,
     get_current_player,
-    
+    get_board_obj,
+    add_board,
   };
 })();
 
