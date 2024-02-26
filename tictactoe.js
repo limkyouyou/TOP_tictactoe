@@ -12,8 +12,17 @@ function board() {
   let board = [[0,0,0],[0,0,0],[0,0,0]];
 
   const get_board = () => board;
+  const put_mark = function (row, column, mark) {
+    if(!board[row][column]) {
+      board[row][column] = mark;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
-  return {get_board};
+  return {get_board, put_mark};
 }
 
 var player_1 = player('o');
