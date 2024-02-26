@@ -192,7 +192,13 @@ const run_game = (function () {
     }
   }
 
-
+  const reset_game = function () {
+    //wipe board clean
+    board.clean_board();
+    // set turn to 0
+    turn = 0;
+    return true;
+  }
 
   return {
     play_turn, 
@@ -203,6 +209,8 @@ const run_game = (function () {
     get_current_player,
     get_board_obj,
     add_board,
+    reset_game,
+    
   };
 })();
 
