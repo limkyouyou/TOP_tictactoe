@@ -1,30 +1,63 @@
 
+
+@font-face {
+  font-family: 'roboto_regular';
+  src: url(media/fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'roboto_medium';
+  src: url(media/fonts/Roboto-Medium.ttf);
+}
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'roboto_regular', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #main_container {
   width: 900px;
-  height: 625px;
-  border: 1px solid black;
+  height: 675px;
+  background-color: #2B4141;
+  border-radius: 8px;
 }
 
 #header_container {
-  background-color: aqua;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#header_container h1 {
+  font-family: 'roboto_medium', sans-serif;
+  font-size: 35px;
+  color: white;
 }
 
 #game_container {
   display: flex;
-
-  height: 80%;
-  background-color: greenyellow;
+  height: 500px;
 }
 
 #board_container {
   display: grid;
-  padding: 2px;
-  grid-template-columns: repeat(3, 165px);
-  grid-template-rows: repeat(3, 165px);
+
+  grid-template-columns: repeat(3, 167px);
+  grid-template-rows: repeat(3, 167px);
+  background-color: #8AB9B5;
+  border-radius: 4px;
+  box-shadow: 0 0 8px #8AB9B5;
 }
 
 .cell {
@@ -32,6 +65,10 @@
   justify-content: center;
   align-items: center;
   border: 2px solid black;
+}
+
+.cell:hover {
+  cursor: pointer;
 }
 
 .circle_img {
@@ -52,7 +89,14 @@
   height: 100%;
   padding: 10px;
   text-align: center;
-  background-color: bisque;
+  color: white;
+  border-radius: 9px;
+}
+
+#p1_winner_msg,
+#p2_winner_msg {
+  font-family: 'roboto_medium', sans-serif;
+  margin-top: 20px;
 }
 
 .p1_marker {
@@ -70,7 +114,7 @@
 }
 
 .player_name {
-
+  margin-top: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -78,17 +122,48 @@
 #board_container {
   width: 500px;
   height: 100%;
-  background-color: blueviolet;
 }
 
 #input_container {
-  background-color: rgb(243, 194, 194);
+  height: 100px;
+}
+
+#input_form {
+  padding: 18px;
+  color: white;
 }
 
 #input_form #name_input_container{
   display: flex;
+  justify-content: center;
+  gap: 70px;
+}
+
+#submit_btn_container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#submit_btn_container input,
+#reset_container button {
+  padding: 5px 20px 5px 20px;
+  background-color: #0EB1D2;
+  border: 0;
+  border-radius: 8px;
+}
+
+#submit_btn_container input:hover,
+#reset_container button:hover {
+  background-color: #0c90aa;
+  box-shadow: 0 0 10px #075a6b inset;
+  cursor: pointer;
 }
 
 #reset_container {
   display: none;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
 }

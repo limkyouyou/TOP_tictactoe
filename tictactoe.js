@@ -128,6 +128,10 @@ const run_game = (function () {
     return false
   }
 
+  const empty_players = () => {
+    players = [];
+  }
+
   const add_players = function (player_1, player_2) {
     players[0] = player_1;
     players[1] = player_2;
@@ -202,6 +206,7 @@ const run_game = (function () {
     board.clean_board();
     // set turn to 0
     turn = 0;
+    winner_mark = undefined;
     return true;
   }
 
@@ -228,6 +233,8 @@ const run_game = (function () {
     validate_input,
     is_cell_emtpy,
     get_winner,
+    empty_players,
+
   };
 })();
 
@@ -264,7 +271,7 @@ submit_btn.addEventListener('click', (event) => {
   const input_form = document.getElementById('input_form');
   const reset_container = document.getElementById('reset_container');
   input_form.style.display = 'none';
-  reset_container.style.display = 'block';
+  reset_container.style.display = 'flex';
 
 });
 
@@ -285,6 +292,8 @@ reset_btn.addEventListener('click', () => {
 });
 
 new_game_btn.addEventListener('click', () => {
+  run_game.empty_players();
+  run_game.reset_game();
 
   for (let button of buttons_list) {
     button.querySelector('.circle_img').style.display = 'none';
