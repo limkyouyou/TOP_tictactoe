@@ -241,6 +241,8 @@ var new_board = board();
 let submit_btn = document.getElementById('submit_btn');
 let buttons_list = document.getElementsByClassName('cell');
 let input_form_collection = document.forms.input_form;
+let p1_container = document.getElementById('p1_container');
+let p2_container = document.getElementById('p2_container');
 
 submit_btn.addEventListener('click', (event) => {
   event.preventDefault();
@@ -273,12 +275,16 @@ for (let button of buttons_list) {
 
       if (current_player == 'o') {
         button.querySelector('.circle_img').style.display = 'block';
+        p2_container.style.boxShadow = '0 0 20px red inset';
+        p1_container.style.boxShadow = 'none';
       }
       else {
         button.querySelector('.cross_img').style.display = 'block';
+        p1_container.style.boxShadow = '0 0 20px blue inset';
+        p2_container.style.boxShadow = 'none';
       }
       
-      
+
     }
   });
 }

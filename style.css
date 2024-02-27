@@ -55,6 +55,10 @@
   background-color: bisque;
 }
 
+#p1_container {
+  box-shadow: 0 0 20px blue inset;
+}
+
 .p1_marker {
   width: 100px;
   height: 100px;
