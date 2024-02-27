@@ -234,9 +234,6 @@ const run_game = (function () {
   };
 })();
 
-var player_1 = player('Lee', 'o');
-var player_2 = player('Chan', 'x');
-var new_board = board();
 
 let submit_btn = document.getElementById('submit_btn');
 let buttons_list = document.getElementsByClassName('cell');
@@ -257,6 +254,8 @@ submit_btn.addEventListener('click', (event) => {
 
   run_game.add_board(new_board);
   run_game.add_players(player_1, player_2);
+
+  p1_container.style.boxShadow = '0 0 20px blue inset';
 
 });
 
@@ -283,8 +282,27 @@ for (let button of buttons_list) {
         p1_container.style.boxShadow = '0 0 20px blue inset';
         p2_container.style.boxShadow = 'none';
       }
-      
 
+      if (result) {
+        const p1_msg = p1_container.querySelector('#p1_winner_msg');
+        const p2_msg = p2_container.querySelector('#p2_winner_msg');
+        if (result === 'o') {
+          p1_container.style.boxShadow = '0 0 20px green inset';
+          p2_container.style.boxShadow = 'none';
+          p1_msg.textContent = 'Winner!';
+        }
+        else if (result === 'x') {
+          p2_container.style.boxShadow = '0 0 20px green inset';
+          p1_container.style.boxShadow = 'none';
+          p2_msg.textContent = 'Winner!';
+        }
+        else {
+          p1_msg.textContent = 'Draw';
+          p2_msg.textContent = 'Draw';
+          p2_container.style.boxShadow = 'none';
+          p1_container.style.boxShadow = 'none';
+        }
+      }
     }
   });
 }

@@ -55,10 +55,6 @@
   background-color: bisque;
 }
 
-#p1_container {
-  box-shadow: 0 0 20px blue inset;
-}
-
 .p1_marker {
   width: 100px;
   height: 100px;
@@ -70,7 +66,7 @@
   width: 80px;
   height: 80px;
   margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .player_name {
