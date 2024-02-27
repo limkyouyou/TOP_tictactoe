@@ -109,6 +109,7 @@ const run_game = (function () {
   let turn = 0;
   let players = [];
   let board;
+  let winner_mark;
 
   const switch_turn = () => ++turn;
 
@@ -117,6 +118,8 @@ const run_game = (function () {
   const get_players_list = () => players;
 
   const get_board_obj = () => board;
+
+  const get_winner = () => winner_mark;
 
   const check_players_ready = function () {
     if (players.length === 2) {
@@ -147,7 +150,7 @@ const run_game = (function () {
 
   const check_game_end = function () {
 
-    if (turn === 8) {
+    if (turn > 8 || winner_mark) {
       console.log('game ended');
       return true;
     }
@@ -162,22 +165,27 @@ const run_game = (function () {
     return false
   }
 
+  const is_cell_emtpy = function(row, column) {
+    return board.get_board()[row][column]
+  }
+
   const play_turn = function (row, column) {
     // assume board is loaded and game has not ended - under 9 turns and no winner
     // if players are not ready OR input is invalid OR given cell is occupied then return false 
-    if (check_players_ready() && validate_input(row, column) && !(board.get_board()[row][column])) {
+    if (check_players_ready() && validate_input(row, column) && !(is_cell_emtpy(row, column))) {
       // get current player and put down its mark
       let mark = get_current_player();
 
       console.log('current turn: ' + mark);
 
       board.put_mark(row, column, mark);
-      
+      console.log("turn: " + turn);
       // check for winner or game ended
-      let winner = (board.check_col() || board.check_row() || board.check_diagonal() || check_game_end());
+      let winner = (board.check_col() || board.check_row() || board.check_diagonal() || turn >= 8);
       
       if (winner) {
         // if game ended with no winner, it should return true boolean
+        winner_mark = winner;
         return winner;
       }
 
@@ -200,17 +208,29 @@ const run_game = (function () {
     return true;
   }
 
+  const is_game_ready = function () {
+    if (check_players_ready() && board) {
+      return true;
+    }
+    return false;
+  }
+
+
   return {
     play_turn, 
     switch_turn, 
-    get_turn, check_game_end, 
+    get_turn,
+    check_game_end, 
     get_players_list, 
     add_players,
     get_current_player,
     get_board_obj,
     add_board,
     reset_game,
-    
+    is_game_ready,
+    validate_input,
+    is_cell_emtpy,
+    get_winner,
   };
 })();
 
@@ -238,20 +258,26 @@ submit_btn.addEventListener('click', (event) => {
 
 });
 
+
 for (let button of buttons_list) {
   button.addEventListener('click', () => {
     let location = button.id.split('-');
     let row = parseInt(location[0]);
     let column = parseInt(location[1]);
-    let current_player = run_game.get_current_player();
+    console.log("game ended: "+ (run_game.check_game_end()) + " " + run_game.get_turn() + " " + run_game.get_winner())
+    if (run_game.is_game_ready() && !(run_game.is_cell_emtpy(row, column)) && !(run_game.check_game_end())) {
+      
+      let current_player = run_game.get_current_player();
 
-    run_game.play_turn(row, column);
+      let result = run_game.play_turn(row, column);
 
-    if (current_player == 'o') {
-      button.querySelector('.circle_img').style.display = 'block';
+      if (current_player == 'o') {
+        button.querySelector('.circle_img').style.display = 'block';
+      }
+      else {
+        button.querySelector('.cross_img').style.display = 'block';
+      }
+      console.log(result);
     }
-    else {
-      button.querySelector('.cross_img').style.display = 'block';
-    }
-  })
+  });
 }

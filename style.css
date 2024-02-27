@@ -51,6 +51,11 @@
   background-color: bisque;
 }
 
+.marker {
+  width: 100px;
+  height: 100px;
+}
+
 #board_container {
   width: 500px;
   height: 100%;
