@@ -238,129 +238,132 @@ const run_game = (function () {
   };
 })();
 
+const dom_interface = (function () {
 
-let submit_btn = document.getElementById('submit_btn');
-let buttons_list = document.getElementsByClassName('cell');
-let input_form_collection = document.forms.input_form;
-let p1_container = document.getElementById('p1_container');
-let p2_container = document.getElementById('p2_container');
-const reset_btn = document.getElementById('reset_btn');
-const new_game_btn = document.getElementById('new_game_btn');
+  const submit_btn = document.getElementById('submit_btn');
+  const buttons_list = document.getElementsByClassName('cell');
+  const input_form_collection = document.forms.input_form;
+  const reset_btn = document.getElementById('reset_btn');
+  const new_game_btn = document.getElementById('new_game_btn');
+  const p1_container = document.getElementById('p1_container');
+  const p2_container = document.getElementById('p2_container');
+  const p1_name = document.getElementById('p1_name');
+  const p2_name = document.getElementById('p2_name');
+  const p1_turn_style = '0 0 20px blue inset';
+  const p2_turn_style = '0 0 20px red inset';
+  const winner_style = '0 0 20px green inset';
+  const p1_msg = p1_container.querySelector('#p1_winner_msg');
+  const p2_msg = p2_container.querySelector('#p2_winner_msg');
 
-submit_btn.addEventListener('click', (event) => {
-  event.preventDefault();
   
-  const p1_name_input = input_form_collection['p1_name'].value;
-  const p2_name_input = input_form_collection['p2_name'].value;
-
-  const player_1 = player(p1_name_input, 'o');
-  const player_2 = player(p2_name_input, 'x');
-
-  const new_board = board();
-
-  run_game.add_board(new_board);
-  run_game.add_players(player_1, player_2);
-
-  p1_container.style.boxShadow = '0 0 20px blue inset';
-
-  const p1_name = document.getElementById('p1_name');
-  const p2_name = document.getElementById('p2_name');
-  p1_name.textContent = p1_name_input.toUpperCase();
-  p2_name.textContent = p2_name_input.toUpperCase();
-
-  const input_form = document.getElementById('input_form');
-  const reset_container = document.getElementById('reset_container');
-  input_form.style.display = 'none';
-  reset_container.style.display = 'flex';
-
-});
-
-reset_btn.addEventListener('click', () => {
-  run_game.reset_game();
-
+  submit_btn.addEventListener('click', (event) => {
+    event.preventDefault();
+    
+    const p1_name_input = input_form_collection['p1_name'].value;
+    const p2_name_input = input_form_collection['p2_name'].value;
+  
+    const player_1 = player(p1_name_input, 'o');
+    const player_2 = player(p2_name_input, 'x');
+  
+    const new_board = board();
+  
+    run_game.add_board(new_board);
+    run_game.add_players(player_1, player_2);
+  
+    p1_container.style.boxShadow = p1_turn_style;
+  
+    
+    p1_name.textContent = p1_name_input.toUpperCase();
+    p2_name.textContent = p2_name_input.toUpperCase();
+  
+    const input_form = document.getElementById('input_form');
+    const reset_container = document.getElementById('reset_container');
+    input_form.style.display = 'none';
+    reset_container.style.display = 'flex';
+  
+  });
+  
   for (let button of buttons_list) {
-    button.querySelector('.circle_img').style.display = 'none';
-    button.querySelector('.cross_img').style.display = 'none';
-  }
-
-  const p1_msg = p1_container.querySelector('#p1_winner_msg');
-  const p2_msg = p2_container.querySelector('#p2_winner_msg');
-  p1_msg.textContent = '';
-  p2_msg.textContent = '';
-  p2_container.style.boxShadow = 'none';
-  p1_container.style.boxShadow = 'none';
-});
-
-new_game_btn.addEventListener('click', () => {
-  run_game.empty_players();
-  run_game.reset_game();
-
-  for (let button of buttons_list) {
-    button.querySelector('.circle_img').style.display = 'none';
-    button.querySelector('.cross_img').style.display = 'none';
-  }
-
-  const p1_name = document.getElementById('p1_name');
-  const p2_name = document.getElementById('p2_name');
-  p1_name.textContent = '';
-  p2_name.textContent = '';
-
-  const p1_msg = p1_container.querySelector('#p1_winner_msg');
-  const p2_msg = p2_container.querySelector('#p2_winner_msg');
-  p1_msg.textContent = '';
-  p2_msg.textContent = '';
-  p2_container.style.boxShadow = 'none';
-  p1_container.style.boxShadow = 'none';
-
-  const input_form = document.getElementById('input_form');
-  const reset_container = document.getElementById('reset_container');
-  input_form.style.display = 'block';
-  reset_container.style.display = 'none';
-});
-
-for (let button of buttons_list) {
-  button.addEventListener('click', () => {
-    let location = button.id.split('-');
-    let row = parseInt(location[0]);
-    let column = parseInt(location[1]);
-    console.log("game ended: "+ (run_game.check_game_end()) + " " + run_game.get_turn() + " " + run_game.get_winner())
-    if (run_game.is_game_ready() && !(run_game.is_cell_emtpy(row, column)) && !(run_game.check_game_end())) {
+    button.addEventListener('click', () => {
+      const location = button.id.split('-');
+      const row = parseInt(location[0]);
+      const column = parseInt(location[1]);
       
-      let current_player = run_game.get_current_player();
-
-      let result = run_game.play_turn(row, column);
-
-      if (current_player == 'o') {
-        button.querySelector('.circle_img').style.display = 'block';
-        p2_container.style.boxShadow = '0 0 20px red inset';
-        p1_container.style.boxShadow = 'none';
-      }
-      else {
-        button.querySelector('.cross_img').style.display = 'block';
-        p1_container.style.boxShadow = '0 0 20px blue inset';
-        p2_container.style.boxShadow = 'none';
-      }
-
-      if (result) {
-        const p1_msg = p1_container.querySelector('#p1_winner_msg');
-        const p2_msg = p2_container.querySelector('#p2_winner_msg');
-        if (result === 'o') {
-          p1_container.style.boxShadow = '0 0 20px green inset';
-          p2_container.style.boxShadow = 'none';
-          p1_msg.textContent = 'Winner!';
-        }
-        else if (result === 'x') {
-          p2_container.style.boxShadow = '0 0 20px green inset';
+      if (run_game.is_game_ready() && !(run_game.is_cell_emtpy(row, column)) && !(run_game.check_game_end())) {
+        
+        const current_player = run_game.get_current_player();
+  
+        const result = run_game.play_turn(row, column);
+  
+        if (current_player == 'o') {
+          button.querySelector('.circle_img').style.display = 'block';
+          p2_container.style.boxShadow = p2_turn_style;
           p1_container.style.boxShadow = 'none';
-          p2_msg.textContent = 'Winner!';
         }
         else {
-          p1_msg.textContent = 'Draw';
-          p2_msg.textContent = 'Draw';
+          button.querySelector('.cross_img').style.display = 'block';
+          p1_container.style.boxShadow = p1_turn_style;
           p2_container.style.boxShadow = 'none';
-          p1_container.style.boxShadow = 'none';
+        }
+  
+        if (result) {
+          
+          if (result === 'o') {
+            p1_container.style.boxShadow = winner_style;
+            p2_container.style.boxShadow = 'none';
+            p1_msg.textContent = 'Winner!';
+          }
+          else if (result === 'x') {
+            p2_container.style.boxShadow = winner_style;
+            p1_container.style.boxShadow = 'none';
+            p2_msg.textContent = 'Winner!';
+          }
+          else {
+            p1_msg.textContent = 'Draw';
+            p2_msg.textContent = 'Draw';
+            p2_container.style.boxShadow = 'none';
+            p1_container.style.boxShadow = 'none';
+          }
         }
       }
+    });
+  }
+
+  new_game_btn.addEventListener('click', () => {
+    run_game.empty_players();
+    run_game.reset_game();
+  
+    for (let button of buttons_list) {
+      button.querySelector('.circle_img').style.display = 'none';
+      button.querySelector('.cross_img').style.display = 'none';
     }
+
+    p1_name.textContent = '';
+    p2_name.textContent = '';
+  
+    p1_msg.textContent = '';
+    p2_msg.textContent = '';
+    p2_container.style.boxShadow = 'none';
+    p1_container.style.boxShadow = 'none';
+  
+    const input_form = document.getElementById('input_form');
+    const reset_container = document.getElementById('reset_container');
+    input_form.style.display = 'block';
+    reset_container.style.display = 'none';
   });
-}
+
+  reset_btn.addEventListener('click', () => {
+    run_game.reset_game();
+  
+    for (let button of buttons_list) {
+      button.querySelector('.circle_img').style.display = 'none';
+      button.querySelector('.cross_img').style.display = 'none';
+    }
+
+    p1_msg.textContent = '';
+    p2_msg.textContent = '';
+    p2_container.style.boxShadow = 'none';
+    p1_container.style.boxShadow = p1_turn_style;
+  });
+
+})();
