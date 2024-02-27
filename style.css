@@ -88,3 +88,7 @@
 #input_form #name_input_container{
   display: flex;
 }
+
+#reset_container {
+  display: none;
+}

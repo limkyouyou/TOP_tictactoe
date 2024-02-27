@@ -129,12 +129,9 @@ const run_game = (function () {
   }
 
   const add_players = function (player_1, player_2) {
-    if (!check_players_ready()) {
-      players[0] = player_1;
-      players[1] = player_2;
-      return true;
-    }
-    return false;
+    players[0] = player_1;
+    players[1] = player_2;
+    return true;
   }
 
   const get_current_player = function () {
@@ -240,25 +237,77 @@ let buttons_list = document.getElementsByClassName('cell');
 let input_form_collection = document.forms.input_form;
 let p1_container = document.getElementById('p1_container');
 let p2_container = document.getElementById('p2_container');
+const reset_btn = document.getElementById('reset_btn');
+const new_game_btn = document.getElementById('new_game_btn');
 
 submit_btn.addEventListener('click', (event) => {
   event.preventDefault();
   
-  let p1_name = input_form_collection['p1_name'].value;
-  let p2_name = input_form_collection['p2_name'].value;
+  const p1_name_input = input_form_collection['p1_name'].value;
+  const p2_name_input = input_form_collection['p2_name'].value;
 
-  let player_1 = player(p1_name, 'o');
-  let player_2 = player(p2_name, 'x');
+  const player_1 = player(p1_name_input, 'o');
+  const player_2 = player(p2_name_input, 'x');
 
-  let new_board = board();
+  const new_board = board();
 
   run_game.add_board(new_board);
   run_game.add_players(player_1, player_2);
 
   p1_container.style.boxShadow = '0 0 20px blue inset';
 
+  const p1_name = document.getElementById('p1_name');
+  const p2_name = document.getElementById('p2_name');
+  p1_name.textContent = p1_name_input.toUpperCase();
+  p2_name.textContent = p2_name_input.toUpperCase();
+
+  const input_form = document.getElementById('input_form');
+  const reset_container = document.getElementById('reset_container');
+  input_form.style.display = 'none';
+  reset_container.style.display = 'block';
+
 });
 
+reset_btn.addEventListener('click', () => {
+  run_game.reset_game();
+
+  for (let button of buttons_list) {
+    button.querySelector('.circle_img').style.display = 'none';
+    button.querySelector('.cross_img').style.display = 'none';
+  }
+
+  const p1_msg = p1_container.querySelector('#p1_winner_msg');
+  const p2_msg = p2_container.querySelector('#p2_winner_msg');
+  p1_msg.textContent = '';
+  p2_msg.textContent = '';
+  p2_container.style.boxShadow = 'none';
+  p1_container.style.boxShadow = 'none';
+});
+
+new_game_btn.addEventListener('click', () => {
+
+  for (let button of buttons_list) {
+    button.querySelector('.circle_img').style.display = 'none';
+    button.querySelector('.cross_img').style.display = 'none';
+  }
+
+  const p1_name = document.getElementById('p1_name');
+  const p2_name = document.getElementById('p2_name');
+  p1_name.textContent = '';
+  p2_name.textContent = '';
+
+  const p1_msg = p1_container.querySelector('#p1_winner_msg');
+  const p2_msg = p2_container.querySelector('#p2_winner_msg');
+  p1_msg.textContent = '';
+  p2_msg.textContent = '';
+  p2_container.style.boxShadow = 'none';
+  p1_container.style.boxShadow = 'none';
+
+  const input_form = document.getElementById('input_form');
+  const reset_container = document.getElementById('reset_container');
+  input_form.style.display = 'block';
+  reset_container.style.display = 'none';
+});
 
 for (let button of buttons_list) {
   button.addEventListener('click', () => {
