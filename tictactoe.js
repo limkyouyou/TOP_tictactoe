@@ -277,7 +277,8 @@ for (let button of buttons_list) {
       else {
         button.querySelector('.cross_img').style.display = 'block';
       }
-      console.log(result);
+      
+      
     }
   });
 }
